@@ -8,7 +8,14 @@
 			document.getElementById("rockImg").style.height=(document.body.clientHeight-100)*0.9;
 		}
 		function greetUser(){
-			alert('Hello,you little girl!');
+			if (navigator.cookieEnabled) {
+				userName=readCookie("irock_username");
+			}
+			if (userName) {
+				alert("Hello "+userName+", I missed you.");
+			} else {
+				alert('Hello,you little girl!');
+			}
 		}
 		function touchRock(){
 			if(userName){
@@ -17,10 +24,15 @@
 				userName=prompt("What is your name?","Enter your name here.");
 				if (userName) {
 					alert("It is good to meet you, "+userName+".");
+					if (navigator.cookieEnabled) {
+						writeCookie("irock_username",userName,5*365);
+					} else{
+						alert("Sorry.Cookies aren't supported/enabled in your browser.I won't remember you later.")
+					}
 				}
 			}
 			document.getElementById("rockImg").src="rock_happy.png";
-			setTimeout("document.getElementById('rockImg').src='rock.png';",5*1000);
+			setTimeout("document.getElementById('rockImg').src='rock.png';",10*1000);
 		}
 	</script>
 </head>
